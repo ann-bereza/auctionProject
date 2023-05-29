@@ -1,0 +1,18 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    {% if auctions %}
+        {% for item in auctions %}
+            {% if item.isActive %}
+                <h5 class="mt-0 font-weight-bold mb-2"><a href="{{ item.get_absolute_url }}" style="color: #198754;"> {{ item.title }}</a></h5>
+                <p class="font-italic text-muted mb-0 small">{{ item.description }}</p>
+                <h6 class="font-weight-bold my-2">$ {{ item.price }}</h6>
+                <img src="{{ item.imageURL }}"
+                     alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+                <hr>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <h1>No active listings found</h1>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h1>{{ auction.title }}</h1>
+    {% if winner %}
+        <p>You're the winner!</p>
+    {% endif %}
+    <h5>Category: {{ auction.category }}</h5>
+    <img src="{{ auction.imageURL }}" alt="">
+    <p>{{ auction.description }}</p>
+    <hr>
+    <p>Owner: {{ auction.owner }}</p>
+    <hr>
+    <p class="start-bid">Start bid is {{ auction.price }}</p>
+    {% if not latest_bid %}
+        <p class="current-bid">Current bid is {{ auction.price }}</p>
+    {% else %}
+        <p class="current-bid">Current bid is {{ latest_bid.amount }}</p>
+    {% endif %}
+    {% if is_auth %}
+        {% if not in_watchlist %}
+            <a href="{% url 'watchlist_add' auction_id %}" role="button" class="btn btn-outline-success btn-lg">Add to
+                Watchlist</a>
+        {% else %}
+            <a href="{% url 'watchlist_remove' auction_id %}" role="button" class="btn btn-outline-success btn-lg">Remove
+                from Watchlist</a>
+        {% endif %}
+        <div class="bid-section">
+            <h3>Place a Bid</h3>
+            <form method="post" action="{% url "bid" %}">
+                {{ bid }}
+                {% csrf_token %}
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <button type="submit" class="btn btn-outline-success btn-lg">Make Bid</button>
+            </form>
+        </div>
+        <div class="spacer"></div>
+    {% endif %}
+
+    {% if owner %}
+        <form method="post" action="{% url "close" auction_id %}">
+            {% csrf_token %}
+            <input type="submit" value="Close Auction">
+        </form>
+    {% endif %}
+
+    <div class="is-winner">
+        {% if winner %}
+            <p>You're the winner!</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

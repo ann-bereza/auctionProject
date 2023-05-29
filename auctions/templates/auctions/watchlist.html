@@ -1,0 +1,16 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    {% if watchlist %}
+        <h1> {{ watchlist }} </h1>
+            {% for item in auctions %}
+                <ul>
+                    <li><a href="{{ item.get_absolute_url }}"> {{ item.title }}</a></li>
+                </ul>
+            {% empty %}
+                <h2> You are not following any auction yet.</h2>
+            {% endfor %}
+    {% else %}
+        <h1>You haven't added any auctions to your watchlist yet.</h1>
+    {% endif %}
+{% endblock %}
