@@ -164,8 +164,8 @@ def get_watchlist(request):
 
 def add_to_watchlist(request, auction_id):
     auction = get_object_or_404(Auction, pk=auction_id)
-    watchlist, exists = Watchlist.objects.get_or_create(user=request.user)
-    if exists:
+    watchlist, _ = Watchlist.objects.get_or_create(user=request.user)
+    if watchlist.item.contains(auction):
         messages.add_message(request, messages.SUCCESS, "This auction is already in your watchlist")
         return HttpResponseRedirect(reverse('listings', args=(auction_id,)))
     else:
