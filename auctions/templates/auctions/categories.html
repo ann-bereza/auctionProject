@@ -2,9 +2,13 @@
 
 {% block body %}
     <h1> Available categories </h1>
-    {% for category in categories %}
-        <ul>
-            <li><a href="{{ category.get_absolute_url}}">{{ category }}</a></li>
-        </ul>
-    {% endfor %}
+    {% if categories %}
+        {% for category in categories %}
+            <ul>
+                <li><a href="{{ category.get_absolute_url }}">{{ category }}</a></li>
+            </ul>
+        {% endfor %}
+    {% else %}
+        <h2>There is no categories added yet.</h2>
+    {% endif %}
 {% endblock %}

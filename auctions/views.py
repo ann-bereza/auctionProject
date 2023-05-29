@@ -99,8 +99,12 @@ def get_categories(request):
 
 def get_listings_by_category(request, cat_id):
     auctions = Auction.objects.filter(category=cat_id)
+    active_auctions = []
+    for a in auctions:
+        if a.isActive:
+            active_auctions.append(a)
     return render(request, "auctions/index.html", {
-        "auctions": auctions
+        "auctions": active_auctions
     })
 
 
