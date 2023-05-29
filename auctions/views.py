@@ -133,6 +133,11 @@ def bid(request):
             instance.save()
             auction.currentBid = instance
             auction.save()
+            watchlist, _ = Watchlist.objects.get_or_create(user=request.user)
+            if auction not in watchlist.item.all():
+                watchlist.item.add(auction)
+                messages.success(request, "You've successfully added a new bid.")
+                messages.success(request, "Auction added to your watchlist")
             return HttpResponseRedirect(reverse('listings', args=(instance.auction_id,)))
         else:
             messages.error(
@@ -174,7 +179,7 @@ def add_to_watchlist(request, auction_id):
         return HttpResponseRedirect(reverse('listings', args=(auction_id,)))
     else:
         watchlist.item.add(auction)
-        messages.add_message(request, messages.SUCCESS, "Successfully added to your watchlist")
+        messages.add_message(request, messages.SUCCESS, "Auction added to your watchlist")
         return HttpResponseRedirect(reverse('listings', args=(auction_id,)))
 
 
