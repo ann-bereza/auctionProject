@@ -24,11 +24,11 @@
     <hr>
     <p>Owner: {{ auction.owner }}</p>
     <hr>
-    <p class="start-bid">Start bid is {{ auction.price }}</p>
+    <p class="start-bid">Start bid is {{ auction.price }} USD</p>
     {% if not latest_bid %}
-        <p class="current-bid">Current bid is {{ auction.price }}</p>
+        <p class="current-bid">Current bid is {{ auction.price }} USD</p>
     {% else %}
-        <p class="current-bid">Current bid is {{ latest_bid.amount }}</p>
+        <p class="current-bid">Current bid is {{ latest_bid.amount }} USD</p>
     {% endif %}
     {% if is_auth and not owner %}
         {% if not in_watchlist %}
