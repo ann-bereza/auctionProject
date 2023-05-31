@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-6_18&%t#42)6syll+qy^_=k336aum7x=8ta4_j8fg0nz$j%1^2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['annbereza.pythonanywhere.com']
 
@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +50,28 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'auctionProject.urls'
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'width': '100%',
+        'toolbar_Custom': [
+            ['Styles', 'Format', 'Bold', 'Italic', 'Underline',
+                'Strike', 'SpellChecker', 'Undo', 'Redo'],
+            ['Link', 'Unlink'],
+            ['HorizontalRule'],
+            ['TextColor', 'BGColor'],
+            ['Smiley', 'SpecialChar'], ['Source'],
+            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['NumberedList', 'BulletedList'],
+            ['Indent', 'Outdent'],
+        ],
+        'autoParagraph': False,
+        'enterMode': 2,
+    }
+}
 
 TEMPLATES = [
     {
@@ -114,10 +137,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR/ 'auctions' / 'static')
+STATIC_ROOT = os.path.join(BASE_DIR / 'auctions' / 'static')
 MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(BASE_DIR/ 'auctions' / 'media')
-
+MEDIA_ROOT = os.path.join(BASE_DIR / 'auctions' / 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

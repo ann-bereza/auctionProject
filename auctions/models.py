@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
@@ -24,7 +25,7 @@ class Auction(models.Model):
         on_delete=models.PROTECT
     )
     title = models.CharField(max_length=128)
-    description = models.CharField(max_length=2048)
+    description = RichTextField(blank=True, null=True)
     imageURL = models.URLField(max_length=500)
     price = models.IntegerField()
     isActive = models.BooleanField(default=True)

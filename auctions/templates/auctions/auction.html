@@ -17,7 +17,7 @@
          onerror="this.onerror=null;this.src='{% static '/assets/default_auction.png'%}'" alt="Item image" width="600" height="800">
     </div>
         <div class="col-6">
-            {{ auction.description }}
+            {{ auction.description|safe }}
         </div>
     </div>
 

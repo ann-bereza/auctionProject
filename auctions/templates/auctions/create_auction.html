@@ -3,8 +3,8 @@
 {% block body %}
 <form method="post" class="col-6">
     {%csrf_token %}
+     {{ form.media }}
     {{ form.as_div }}
-
     <button type="submit" class="btn btn-outline-success btn-lg mt-3">Save</button>
 </form>
 
