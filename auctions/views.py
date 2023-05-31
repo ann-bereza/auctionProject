@@ -147,8 +147,6 @@ def bid(request):
 
 @login_required(login_url='/login')
 def close_auction(request, auction_id):
-    if request.method != "POST":
-        return HttpResponseBadRequest("Not valid")
     auction = Auction.objects.filter(pk=auction_id)[0]
     if auction.currentBid:
         winner = User.objects.filter(pk=auction.currentBid.user_id)[0]

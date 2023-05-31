@@ -25,7 +25,7 @@ class Auction(models.Model):
     )
     title = models.CharField(max_length=128)
     description = models.CharField(max_length=2048)
-    imageURL = models.URLField(max_length=500, default='')
+    imageURL = models.URLField(max_length=500)
     price = models.IntegerField()
     isActive = models.BooleanField(default=True)
     owner = models.ForeignKey("User", on_delete=models.PROTECT)

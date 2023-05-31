@@ -1,13 +1,26 @@
 {% extends "auctions/layout.html" %}
+{% load static %}
 
 {% block body %}
     <h1>{{ auction.title }}</h1>
+    <hr>
     {% if winner %}
+        <hr>
         <p>You're the winner!</p>
+        <hr>
     {% endif %}
     <h5>Category: {{ auction.category }}</h5>
-    <img src="{{ auction.imageURL }}" alt="">
-    <p>{{ auction.description }}</p>
+    <hr>
+    <div class="row">
+    <div class="col-6">
+        <img id="auction-image" class="img-fluid" src="{{ auction.imageURL }}"
+         onerror="this.onerror=null;this.src='{% static '/assets/default_auction.png'%}'" alt="Item image" width="600" height="800">
+    </div>
+        <div class="col-6">
+            {{ auction.description }}
+        </div>
+    </div>
+
     <hr>
     <p>Owner: {{ auction.owner }}</p>
     <hr>
@@ -17,7 +30,7 @@
     {% else %}
         <p class="current-bid">Current bid is {{ latest_bid.amount }}</p>
     {% endif %}
-    {% if is_auth %}
+    {% if is_auth and not owner %}
         {% if not in_watchlist %}
             <a href="{% url 'watchlist_add' auction_id %}" role="button" class="btn btn-outline-success btn-lg">Add to
                 Watchlist</a>
@@ -33,7 +46,9 @@
                 {% if messages %}
                     <ul class="messages">
                         {% for message in messages %}
-                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% if 'is closed successfully' not in message.message %}
+                                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endif %}
                         {% endfor %}
                     </ul>
                 {% endif %}
@@ -44,10 +59,7 @@
     {% endif %}
 
     {% if owner %}
-        <form method="post" action="{% url "close" auction_id %}">
-            {% csrf_token %}
-            <button type="button" class="btn btn-dark mt-3">Close Auction </button>
-        </form>
+        <a href="{% url 'close' auction_id %}" role="button" class="btn btn-dark mt-3">Close Auction</a>
     {% endif %}
 
     <div class="is-winner">
