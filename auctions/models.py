@@ -30,8 +30,9 @@ class Auction(models.Model):
     price = models.IntegerField()
     isActive = models.BooleanField(default=True)
     owner = models.ForeignKey("User", on_delete=models.PROTECT)
-    currentBid = models.ForeignKey("Bid", on_delete=models.PROTECT, related_name="auction_current_bid", null=True)
-    winner = models.ForeignKey("User", on_delete=models.PROTECT, related_name="auction_winner", null=True)
+    currentBid = models.ForeignKey("Bid", on_delete=models.CASCADE, related_name="auction_current_bid", null=True,
+                                   blank=True)
+    winner = models.ForeignKey("User", on_delete=models.CASCADE, related_name="auction_winner", null=True, blank=True)
 
     def __str__(self):
         return f"{self.title}"
